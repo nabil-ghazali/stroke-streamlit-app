@@ -1,0 +1,22 @@
+[project]
+name = "stroke-streamlit-app"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "github.com/nabil-ghazali",email = "nabil.dev.ghaz@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit (>=1.48.0,<2.0.0)",
+    "plotly (>=6.2.0,<7.0.0)",
+    "requests (>=2.32.4,<3.0.0)",
+    "pandas (>=2.3.1,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+API_URL = "http://localhost:8000"   # en local
