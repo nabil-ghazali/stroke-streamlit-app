@@ -14,12 +14,12 @@ API_BASE = st.secrets[ENV]["API_URL"]
 PATIENTS_PATH = "/patients/"
 STATS_PATH = "/patients/stats/"
 
-def _build_url(path: str) -> str:
+def _build_url(path: str) -> str: # construction de l'URL
     return API_BASE.rstrip("/") + path
 
 @st.cache_data(ttl=60)
 def get_patients(gender: Optional[str]=None, stroke: Optional[int]=None, max_age: Optional[float]=None) -> pd.DataFrame:
-    params: Dict[str, Any] = {}
+    params: Dict[str, Any] = {} # initialisation; clé : type string, valeur: tout type (string, int, float, bolléen)
     if gender:
         params["gender"] = gender
     if stroke is not None:
@@ -36,7 +36,7 @@ def get_patients(gender: Optional[str]=None, stroke: Optional[int]=None, max_age
     df = pd.DataFrame(data) if isinstance(data, list) else pd.DataFrame([data])
     return df
 
-@st.cache_data(ttl=60)
+@st.cache_data(ttl=60) # mise encache 60 secondes
 def get_stats() -> Dict[str, Any]:
     url = _build_url(STATS_PATH)
     r = requests.get(url, timeout=15)

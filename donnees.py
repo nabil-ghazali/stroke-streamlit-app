@@ -8,9 +8,9 @@ from app import get_patients
 st.markdown("# Données")
 st.sidebar.markdown("# Données")
 
-st.title(" Données")
+# st.title(" Données")
 
-# --- Filtres
+# === Filtres ===
 col1, col2, col3 = st.columns([1,1,2])
 with col1:
     gender = st.selectbox(
@@ -28,18 +28,18 @@ with col3:
     use_max_age = st.checkbox("Filtrer par âge maximum", value=False)
     max_age = st.slider("Âge max", min_value=1, max_value=120, value=80, disabled=not use_max_age)
 
-# Mapping des filtres → paramètres API
-gender_param = None if gender == "Tous" else gender
+# === Mapping des filtres qu'on transforme en paramètres API ===
+gender_param = None if gender == "Tous" else gender # Si l'utilisateur sélectionne "Tous", il n'y a pas de filtre genre et on met None.
 if stroke_label == "Tous":
     stroke_param = None
-elif stroke_label.startswith("0"):
+elif stroke_label.startswith("0"): # Sinon, on garde la valeur du genre choisi.
     stroke_param = 0
 else:
     stroke_param = 1
 
-max_age_param = max_age if use_max_age else None
+max_age_param = max_age if use_max_age else None # Si l'utilisateur a coché la case "Filtrer par âge maximum", on envoie la valeur de max_age comme paramètre, sinon on ne filtre pas.
 
-# --- Appel API
+# === Appel API ===
 with st.spinner("Chargement des données…"):
     try:
         df = get_patients(gender=gender_param, stroke=stroke_param, max_age=max_age_param)
